@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Details</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    #employee-details, #login-form {
+      display: none;
+      margin-top: 20px;
+    }
+    .employee-list {
+      list-style-type: none;
+    }
+    .employee-list li {
+      cursor: pointer;
+      margin: 10px 0;
+      color: #007BFF;
+    }
+    #login-form input {
+      padding: 8px;
+      margin: 5px;
+    }
+    #login-form button {
+      padding: 8px 16px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+    }
+    #employee-details h3 {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <img src="data:image/png;base64,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" alt=""><br>
+  
+
+  <h1>Employee Details</h1>
+
+  <ul class="employee-list">
+    <li data-employee-id="1">John Doe</li>
+    <li data-employee-id="2">Jane Smith</li>
+    <li data-employee-id="3">Alice Johnson</li>
+    <li data-employee-id="4">Cena</li>
+    <li data-employee-id="5">Williamson</li>
+    <li data-employee-id="6">Kevin</li>
+    <li data-employee-id="7">Meha</li>
+    <li data-employee-id="8">Steve Rogers</li>
+    <li data-employee-id="9">Philipes</li>
+    <li data-employee-id="10">Tony Stark</li>
+  </ul>
+
+  <!-- Login Form -->
+  <div id="login-form">
+    <h3>Enter Username and Password to view Employee Details</h3>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button id="login-btn">Login</button>
+  </div>
+
+  <!-- Employee Details -->
+  
+  <div id="employee-details">
+    <h2 id="employee-name"></h2>
+    <p id="employee-info"></p>
+    <p><strong>designation:</strong> <span id="employee-designation"></span></p>
+    <p><strong>Experience:</strong> <span id="employee-experience"></span> years</p>
+    <p><strong>Company_Name:</strong> <span id="employee-Company_Name"></span></p>
+    <p><strong>Salary:</strong> <span id="employee-Salary"></span></p>
+  </div>
+
+  <script>
+    // Sample employee data (in real apps, it could come from an API)
+    const employees = [
+      {
+        id: 1,
+        name: 'John Doe',
+        username: 'john',
+        password: 'john',
+        designation:'software developer',
+        Company_Name:'ZAPtL',
+        Experience:4,
+        Salary:15000
+        
+      },
+      {
+        id: 2,
+        name: 'Jane Smith',
+        username: 'jane',
+        password: 'jane',
+        designation:'python developer',
+        Company_Name:'ZAPtL',
+        Experience:7,
+        Salary:18000
+      },
+      {
+        id: 3,
+        name: 'Alice Johnson',
+        username: 'alice',
+        password: 'alice',
+        designation:'web developer',
+        Company_Name:'ZAPtL',
+        Experience:1,
+        Salary:12000
+      },
+      {
+        id: 4,
+        name: 'Cena',
+        username: 'cena01',
+        password: 'cena01',
+        designation:'web developer',
+        Company_Name:'ZAPtL',
+        Experience:1,
+        Salary:12000
+      },
+      {
+        id: 5,
+        name: 'Williamson',
+        username: 'william',
+        password: 'william',
+        designation:'web developer',
+        Company_Name:'ZAPtL',
+        Experience:1,
+        Salary:12000
+      },
+      {
+        id: 6,
+        name: 'Kevin',
+        username: 'kevin',
+        password: 'kevin',
+        designation:' UI/UX designer ',
+        Company_Name:'ZAPtL',
+        Experience:1,
+        Salary:12000
+      },
+      {
+        id: 7,
+        name: 'Meha',
+        username: 'meha',
+        password: 'meha',
+        designation:'MD',
+        Company_Name:'ZAPtL',
+        Experience:20,
+        Salary:120000
+      },
+      {
+        id: 8,
+        name: 'Steve Rogers',
+        username: 'steve',
+        password: 'steve',
+        designation:'testing',
+        Company_Name:'ZAPtL',
+        Experience:3,
+        Salary:15000
+      },
+      {
+        id: 9,
+        name: 'Philipes',
+        username: 'philipes',
+        password: 'philipes',
+        designation:'web developer',
+        Company_Name:'ZAPtL',
+        Experience:1,
+        Salary:12000
+      },
+      {
+        id: 10,
+        name: 'Tony Stark',
+        username: 'tony',
+        password: 'tony',
+        designation:'software developer',
+        Company_Name:'ZAPtL',
+        Experience:6,
+        Salary:22000
+      }
+    ];
+
+    // When an employee name is clicked, show the login form
+    $('.employee-list li').click(function() {
+      const employeeId = $(this).data('employee-id');
+      $('#employee-name').text(employees[employeeId - 1].name);
+      $('#login-form').data('employee-id', employeeId).show();
+    });
+
+    // Handle login form submission
+    $('#login-btn').click(function() {
+      const employeeId = $('#login-form').data('employee-id');
+      const enteredUsername = $('#username').val();
+      const enteredPassword = $('#password').val();
+
+      const employee = employees[employeeId - 1];
+
+      // Check if entered username and password are correct
+   //  //if (enteredUsername === employee.username && enteredPassword === employee.password) {
+   //     $('#employee-info').text(employee.details);
+   //     $('#employee-details').show();
+   //     $('#login-form').hide();
+   //     $('#enteredUsername')=""
+   //     $('#enteredPassword')=""
+   //   } else {
+   //     alert('Incorrect username or password!');
+   //   }
+   if (enteredUsername === employee.username && enteredPassword === employee.password) {
+        $('#employee-info').text(employee.details);
+        $('#employee-Salary').text(employee.Salary);
+        $('#employee-experience').text(employee.experience);
+        $('#employee-designation').text(employee.designation);
+        $('#employee-Company_Name').text(employee.Company_Name);
+        $('#employee-details').show();
+        $('#login-form').hide();
+      } else {
+        alert('Incorrect username or password!');
+      }
+    });
+  </script>
+
+</body>
+</html>
